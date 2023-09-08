@@ -1,0 +1,628 @@
+html class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths" style="height: auto;"><head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Streaming</title>
+        <base href="https://cl-dfeed-streaming-dev.simpledatacorp.com/">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+        
+        <!--<link rel="stylesheet" href="/assets/css/font-awesome.min.css">-->
+        <link async="" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+        
+        <!--PARA ADMINLTE-->
+        <!--<link rel="stylesheet" href="/assets/css/bootstrap.css">-->
+        
+        
+        <link rel="stylesheet" href="/assets/css/normalize.css">
+        <link rel="stylesheet" href="//adminlte.io/themes/v3/dist/css/adminlte.min.css">
+        <!--<link rel="stylesheet" href="/assets/css/adminlte.min.css">-->
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/v/bs4/dt-1.10.23/datatables.min.css">
+        
+        <!-- <link rel="stylesheet" href="/assets/css/bootstrap.css">-->
+        <!--<link rel="stylesheet" href="/assets/css/general.css?v=1">-->
+        <link rel="stylesheet" href="/assets/css/sweetalert.css">
+        <link rel="stylesheet" href="/assets/css/bootstrap-multiselect.css">
+        <link rel="stylesheet" href="/assets/css/bootstrap-datepicker3.min.css">
+        <!--<link rel="stylesheet" href="/assets/awesome/css/font-awesome.css">-->
+        <!--<link rel="stylesheet" href="/assets/awesome/css/font-awesome.min.css">-->
+        
+        <link rel="stylesheet" href="/assets/css/multi-select.css">
+        <link rel="stylesheet" href="/assets/css/select2.min.css">
+       
+        <!-- Estilos finales MeuCustomer-->
+        <link rel="stylesheet" href="/assets/css/estilosMeuCustomer.css">
+        <!-- loader-->
+        <link rel="stylesheet" type="text/css" href="/assets/css/loader.css">
+    
+        <!--<script src="/assets/js/jquery-3.2.1.min.js"></script>-->
+        <script src="/assets/js/jquery-3.5.1.min.js"></script>
+        
+        <!-- Google Font: Source Sans Pro -->
+        <link async="" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+        
+
+        script>
+            var base_url = "https://cl-dfeed-streaming-dev.simpledatacorp.com/";
+            var is_espana = parseInt("0");
+            var canRecord = parseInt("1") === 1;
+            var name_pag = "WifiDesignEnterprise";
+            var externalKey  = "";
+            var URL_WEBSOCKET_CWE   = "wss://ar-newdev-toolbox.simpledatacorp.com:8443/ws";
+            var USER_WEBSOCKET_CWE  = "appwddev";
+            var PASS_WEBSOCKET_CWE  = "mu7x10f_h";
+            var VHOST_WEBSOCKET_CWE = "/wd";
+        </script>
+        <style>
+            i.nav-icon.fas {
+                margin-right: 5px;
+            }
+            li.nav-item.has-menu:hover ul {
+                display: block;
+            }
+            ul.nav.nav-menu {
+                display: none;
+                position: absolute;
+                width: 300px;
+                background-color: #26a861;
+                top: 61px;
+                border-radius: 25px;
+            }
+            .nav-sidebar .nav-item>.nav-link.disabled {
+                color: #bbbbbb;
+            }
+            
+            .btn.btn-warning:not(:disabled):not(.disabled) {
+                color: #fff;
+            }
+            #loader-wrapper {
+                z-index: 1000 !important;
+                background: rgba(195, 195, 195, 0.5) !important;
+            }
+            body {
+                padding: 0px !important;
+            }
+            .container
+            {
+                width: auto;
+            }
+            .sidenav {
+                height: 100vh;
+                width: 15%;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                background-color: #6e2a92;
+                overflow-x: hidden;
+                padding-top: 20px;
+
+            }
+
+            .icon-content
+            {
+                display: none;
+            }
+
+            .bg-darkGreen{
+                background-color: #26a861;
+            }
+
+            .text-darkGreen{
+                color: #26a861;
+            }
+
+            .circleStyle{
+
+                height: 13vh; 
+                width: 15vh;
+                filter: drop-shadow(1px);
+                border-width:0px;
+
+            }
+
+            .bg-bad{
+
+                background: rgba(230, 108, 98, 0.555);
+                border-color:rgba(230, 108, 98, 0.555);
+                box-shadow: 0 0 15px 15px rgba(230, 108, 98, 0.555);
+
+            }
+
+            .bg-good{
+
+                background: rgba(90, 191, 198, 0.555);
+                border-color: rgba(90, 191, 198, 0.555);
+                box-shadow: 0 0 15px 15px  rgba(90, 191, 198, 0.555);
+
+            }
+
+            .bg-medium{
+
+                background: rgba(234, 195, 66, 0.555);
+                border-color: rgba(234, 195, 66, 0.555);
+                box-shadow: 0 0 15px 15px  rgba(234, 195, 66, 0.555);
+
+            }
+
+            #textTimer {
+                position: fixed;
+                bottom: 2em;
+                right: 4em;
+            }
+
+            #textTimer #timerConnection{
+                font-size: 3em;
+                font-weight: 900;
+            }
+
+        </style>
+    </head>
+    <body class="hold-transition sidebar-mini sidebar-collapse">
+        <div class="wrapper">
+            <!-- Navbar -->
+            <nav class="main-header navbar navbar-expand pt-2 pb-0" style="height: 80px;background-color: #FFFFFF">
+                <!-- Left navbar links -->
+                <ul class="navbar-nav" style="margin-left: 25px;">
+                    <!-- <li class="nav-item">
+                        <a id="botonMenu" style="font-size: x-large; margin-bottom: 15px;" class="nav-link" data-widget="pushmenu" href="#"><i style="color: #26a861!important;" class="fas fa-bars text-white"></i></a>
+                    </li> -->
+                </ul>
+                <h2  class="text-success text-left" style="width:60%;"><b>JOURNEY MATIC VIDEO </b></h2>
+                
+                <!-- Right navbar links -->
+                                <ul class="navbar-nav ml-auto" data-widget="treeview" role="menu" data-accordion="true" style="width: 500px; height: 38px;">
+                    <li  class="nav-item has-menu" style="padding-top: 1px;display: inline-flex; width: 315px; background-color: #5B5B5B;border-radius: 45px;">
+                    <svg style="width: 10%; margin-left: 10px; margin-top: 3px;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
+                        <path style="color: #26a861;" d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
+                        </svg>
+                        <h5 href="#" class="text-white" style="text-align: center; width: 80%; padding-top: 6.5px;"> Bienvenido(a) Administrador</h5>
+                        <div style="background-color: #26a861;border-radius: 90px;margin-top: -3px; text-align: center; width: 40px; height: 40px;">
+                        <svg style="margin-top: 4px;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path style="color: white;" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        </svg>
+                        </div>
+                        <ul class="nav nav-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://cl-dfeed-streaming-dev.simpledatacorp.com/user/password">
+                                <p style="color: white; margin-left: 3px!important;"> <i class="nav-icon fas fa-cogs"></i> Panel de configuración</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://cl-dfeed-streaming-dev.simpledatacorp.com/wifidesign_service">
+                                 <p style="color: white; margin-left: 3px!important;"><i class="nav-icon fas fa-users"></i> Usuarios</p>
+                            </a>
+                        </li>          
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" href="https://cl-dfeed-streaming-dev.simpledatacorp.com/auth/logout">
+                                 <p style="color: white; margin-left: 3px!important;"><i class="nav-icon fas fa-sign-out-alt"></i> Salir</p>
+                            </a>
+                        </li>
+                    </ul>
+                    </li>
+                    <a class="btn btn-default btn-sm ml-auto">
+                        <select class="text-lg" onchange="javascript:window.location.href='https://cl-dfeed-streaming-dev.simpledatacorp.com/LanguageSwitcher/switchLang/'+this.value;" style="border: none; outline: none; box-shadow: none; background-color: #f8f9fa;">
+                            <option value="spanish" >ES</option> 
+                            <option value="english" >EN</option>
+                            <option value="portuguese" >PT</option>
+                        </select>
+                    </a>
+                </ul>
+                            </nav>
+            <!-- /.navbar -->
+
+            <!-- Main Sidebar Container -->
+            <style>
+    .sidebar {
+        height: 685px;
+        background-color: #26a861;
+    }
+
+    .main-sidebar .sidebar-collapse {
+        background-color: #ffffff;
+    }
+
+    .main-sidebar .nav-sidebar .nav-link {
+        margin-left: 0;
+    }
+
+    .main-sidebar .nav-sidebar .nav-treeview {
+        margin-left: 0.5em;
+    }
+
+    [class*=sidebar-light-] .nav-treeview>.nav-item>.nav-link {
+        color: #3d3d41;
+    }
+
+    aside.main-sidebar.sidebar-light-success.elevation-4:hover .sidebar {
+        background-color: #26a861;
+    }
+
+    [class*=sidebar-light-] .nav-sidebar>.nav-item.menu-open>.nav-link,
+    [class*=sidebar-light-] .nav-sidebar>.nav-item:hover>.nav-link {
+        color: #fff;
+    }
+
+    aside.main-sidebar.sidebar-light-success.elevation-4:hover i.nav-icon.fas {
+        color: #3d3d41 !important;
+    }
+
+    aside.main-sidebar.sidebar-light-success.elevation-4:hover .path {
+        color: #3d3d41 !important;
+    }
+
+    i.nav-icon.fas {
+        font-size: 1.5rem !important;
+        margin-left: 0.5rem !important;
+        color: white !important;
+    }
+
+    a.nav-link p {
+        margin-left: 20px !important;
+    }
+
+    a.nav-link {
+        margin-left: 7px;
+        margin-top: 10px;
+    }
+
+    .fa-bars:before .sidebar {
+        background-color: white;
+    }
+
+    .path {
+        color: white;
+    }
+</style>
+
+<aside class="main-sidebar sidebar-light-success elevation-4">
+    <!-- Brand Logo -->
+    <div class="col-12" style="text-align:center;">
+        <!-- Brand Logo -->
+        <a href="" class="brand-link">
+            <img class="img-fluid" src="assets/images/logocwer2.png" alt="Logo WifiDesign - SDC">
+        </a>
+    </div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link disabled" disabled>
+                        <i class="nav-icon fas fa-cogs"></i>
+                        <p>Mantenedores <i class="right fas fa-angle-left"></i> </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://cl-dfeed-streaming-dev.simpledatacorp.com/mantenedores/tipos_de_servicios">
+                                <i class="nav-icon fas fa-object-group"></i>
+                                <p>Tipos de servicios</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link" disabled>
+                            <i class="nav-icon fas fa-video"></i>
+                            <p>Streaming <i class="right fas fa-angle-left"></i></p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a class="nav-link " href="/streaming">
+                                    <i class="nav-icon fas fa-video"></i>
+                                    <p>Iniciar</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/streaming/indexList">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>Listado</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                
+                                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link" disabled>
+                            <i class="nav-icon fas fa-wifi"></i>
+                            <p>Customer Wifi Experience <i class="right fas fa-angle-left"></i> </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/wifidesignExperience">
+                                    <i class="nav-icon fas fa-wifi"></i>
+                                    <p>Iniciar</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/wifidesign_service">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>Listado</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                
+                                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link" disabled>
+                            <i class="nav-icon fas fa-globe"></i>
+                            <p>Normalizador <i class="right fas fa-angle-left"></i> </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/normalizador">
+                                    <i class="nav-icon fas fa-globe"></i>
+                                    <p>Iniciar</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/normalizador/report">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>Listado</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link disabled">
+                        <i class="nav-icon fas fa-file-pdf"></i>
+                        <p>Reportes <i class="right fas fa-angle-left"></i> </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://cl-dfeed-streaming-dev.simpledatacorp.com/mantenedores/tipos_de_servicios">
+                                <i class="nav-icon fas fa-object-group"></i>
+                                <p>Tipos de servicios</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a class="nav-link disabled " href="https://cl-dfeed-streaming-dev.simpledatacorp.com/dashboard/index" disabled>
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <!-- <div class="content-header">
+                    <div class="container-fluid">
+                    </div> /.container-fluid -->
+                <!-- </div> --> 
+                <!-- /.content-header -->
+
+                <!-- Main content -->
+                <div class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+
+                                    <script>
+
+    var username = "administrador1694114020";
+    console.log(username);
+
+</script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css"
+    rel="stylesheet">
+<style>
+    #waitingvideo {
+        display: none !important;
+    }
+
+    .nav-pills .nav-link {
+        color: white;
+    }
+
+    #videocall .nav-pills .nav-link.active {
+        background: #00aae4;
+        color: white;
+    }
+
+    #videocall .nav-pills .nav-link {
+        border: 2px solid #00aae4;
+        /* background: #00aae4; */
+        /* color: #00aae4; */
+    }
+
+    #videocall .disabled {
+        background: #BFD3EC;
+        /* background : #00aae4; */
+        color: #00aae4;
+    }
+
+    .content-wrapper,
+    body {
+        background: #7198D3;
+    }
+
+    #divvideos {
+        padding: 0.5em;
+        background: white
+                            url('assets/images/logo_telefonica.png')
+                        center center no-repeat;
+        background-size: 50% 50%;
+        min-height: 80vh;
+    }
+
+    .main-header {
+        background: #D1D4E6;
+    }
+
+    .sfx-canvas {
+        display: none;
+    }
+
+    .content,
+    .content-wrapper,
+    body,
+    html {
+        background: white;
+    }
+
+    .input-group-text {
+        border: none;
+        font-size: 1.4rem;
+        background-color: #00aae4;
+        color: white;
+    }
+</style>
+
+<script>
+    var urlws = "wss://streaming.simpledatacorp.com:8989/janus";
+    const IdEmpresa = 1;
+    const maxFileSize = 2147483648;
+    var isNewCall = false;
+
+</script>
+
+
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/8.0.0/adapter.min.js"></script>
+<script src="https://cl-dfeed-streaming-dev.simpledatacorp.com/assets/js/janus/janus.js"></script>
+<script>
+        var answerJs ="Contestar";
+        var unexpected_error ="Ocurrió un error inesperado";
+        var hangUp ="Colgar" ;
+        var please_enter_valid_email ="Favor ingrese un correo válido" ;
+        var incompatible_device_please_contact = "Este dispositivo no es compatible con está herramienta, favor comunicate con tu gestor WOM.";
+        var wait_agent_to_answer = "Espere a que conteste el agente.";
+        var client_back_please_answer_again = "Cliente acaba de dar vuelta a la cámara, porfavor vuelva a contestar.";
+        var incoming_call_from = "!Llamada entrante de ";
+        var incomingcall_please_answer = "Recibiendo llamada por favor contestar.";
+        var enter_celphone_numeric = "Por favor ingrese un número de teléfono, sólo númerico";
+        var wrong_number = "El número de teléfono está incorrecto carácteres";
+        var must_enter_email_number = "Debes ingresar un correo o un número de teléfono";
+        var client_answer_then_theBox_close = "Por favor espere a que el cliente inicie la llamada, una vez que el cliente acepte la llamada el recuadro se cerrará automáticamente.";
+        var theJS = "El";
+        var for_this_call = " para está llamada es: ";
+</script>
+<script src="https://cl-dfeed-streaming-dev.simpledatacorp.com/assets/js/janus/videocalltest.js?version=v1.18.51"></script>
+<script src="https://cl-dfeed-streaming-dev.simpledatacorp.com/assets/js/janus/recordplaytest.js?v=1.37"></script>
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+<!-- <script type="text/javaxcript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.js"></script> -->
+<script type="text/javascript" src="https://cl-dfeed-streaming-dev.simpledatacorp.com/assets/streaming/canvas/html2canvas.min.js"></script>
+
+<script type="text/javascript" src="https://cl-dfeed-streaming-dev.simpledatacorp.com/assets/js/drawing/jquery.drawr.js"></script>
+<script type="text/javascript" src="https://cl-dfeed-streaming-dev.simpledatacorp.com/assets/js/drawing/jquery.drawrpalette.js"></script>
+<script type="text/javascript" src="https://cl-dfeed-streaming-dev.simpledatacorp.com/assets/js/drawing/tools/jquery.drawr.pencil.js"></script>
+<script type="text/javascript" src="https://cl-dfeed-streaming-dev.simpledatacorp.com/assets/js/drawing/tools/jquery.drawr.square.js"></script>
+<script type="text/javascript" src="https://cl-dfeed-streaming-dev.simpledatacorp.com/assets/js/drawing/tools/jquery.drawr.text.js"></script>
+<script type="text/javascript" src="https://cl-dfeed-streaming-dev.simpledatacorp.com/assets/js/drawing/tools/jquery.drawr.marker.js"></script>
+<script type="text/javascript" src="https://cl-dfeed-streaming-dev.simpledatacorp.com/assets/js/drawing/tools/jquery.drawr.move.js"></script>
+<script type="text/javascript" src="https://cl-dfeed-streaming-dev.simpledatacorp.com/assets/js/drawing/tools/jquery.drawr.eraser.js"></script>
+<script type="text/javascript" src="https://cl-dfeed-streaming-dev.simpledatacorp.com/assets/js/drawing/tools/jquery.drawr.pen.js"></script>
+<script type="text/javascript"
+
+
+    src="https://cl-dfeed-streaming-dev.simpledatacorp.com/assets/js/drawing/tools/jquery.drawr.eyedropper.js"></script>
+
+
+   
+<script>
+
+const CryptoJS = require("crypto-js");
+
+
+function generarEntradaDeSesion() {
+ 
+  const texto = document.getElementById("texto").value;
+
+  
+  const hash = CryptoJS.MD5(texto).toString();
+
+  
+  return hash;
+}
+
+document.getElementById("boton").addEventListener("click", function() {
+ 
+  const entradaDeSesion = generarEntradaDeSesion();
+
+  
+  document.getElementById("resultado").innerHTML = entradaDeSesion;
+});
+
+function calcularHash() {
+  // Obtener el mensaje
+  var mensaje = document.getElementById("mensaje").value;
+
+  // Calcular el hash MD5
+  var hash = crypto.md5(mensaje);
+
+  // Mostrar el hash MD5
+  document.getElementById("hash").innerHTML = hash;
+}
+
+
+
+
+
+</script>
+
+
+
+<style>
+
+
+img {
+
+
+    img {
+    display: block;
+    margin: 0 auto;
+  }
+
+
+
+}
+
+</style>
+
+<body>
+<input type="text" name="comentario" required>
+
+<div> <select id="1"></select><img src="data:image/jpeg;base64,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" alt=""></select></div>
+
+
+
+<div>
+
+
+    <button id="button">Iniciar</button>
+
+ 
+
+
+
+
+
+</div>
+
+</body>
+
+   
+                       
+
+
+
+
+   </html>

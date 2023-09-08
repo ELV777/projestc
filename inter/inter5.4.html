@@ -1,0 +1,35 @@
+const desarrollarEntrada = (peticion) => {
+  // Obtener los datos de la petición.
+  const datos = peticion.data;
+
+  // Desarrollar la entrada.
+  const entrada = desarrollarEntradaInterna(datos);
+
+  return entrada;
+};
+
+const desarrollarEntradaInterna = (datos) => {
+  // Obtener el tipo de entrada.
+  const tipoEntrada = datos.tipoEntrada;
+
+  // Desarrollar la entrada de acuerdo al tipo de entrada.
+  switch (tipoEntrada) {
+    case "texto":
+      return datos.texto;
+    case "numero":
+      return Number(datos.numero);
+    case "fecha":
+      return new Date(datos.fecha);
+    default:
+      throw new Error("Tipo de entrada desconocido");
+  }
+};
+
+// Crear una petición.
+const peticion = new Request("https://api.example.com/");
+
+// Desarrollar la entrada.
+const entrada = desarrollarEntrada(peticion);
+
+// Imprimir la entrada.
+console.log(entrada);
